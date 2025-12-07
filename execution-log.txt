@@ -1,0 +1,278 @@
+ansible-playbook -i inventory.ini assignment3.yaml
+PLAY [Configure NTP, Logging, Banner, and Timezone] ****************************
+
+TASK [Configure NTP server] ****************************************************
+[WARNING]: ansible-pylibssh not installed, falling back to paramiko
+[WARNING]: To ensure idempotency and correct diff the input configuration lines
+should be similar to how they appear if present in the running configuration on
+device
+changed: [Core-Router-East]
+changed: [Core-Router-West]
+
+TASK [Debug NTP configuration result] ******************************************
+ok: [Core-Router-East] => {
+    "ntp_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "ntp server time.google.com"
+        ],
+        "failed": false,
+        "updates": [
+            "ntp server time.google.com"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+ok: [Core-Router-West] => {
+    "ntp_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "ntp server time.google.com"
+        ],
+        "failed": false,
+        "updates": [
+            "ntp server time.google.com"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+
+TASK [Configure logging] *******************************************************
+changed: [Core-Router-West]
+changed: [Core-Router-East]
+
+TASK [Debug logging configuration result] **************************************
+ok: [Core-Router-East] => {
+    "logging_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "logging buffered 16384",
+            "logging console warnings"
+        ],
+        "failed": false,
+        "updates": [
+            "logging buffered 16384",
+            "logging console warnings"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+ok: [Core-Router-West] => {
+    "logging_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "logging buffered 16384",
+            "logging console warnings"
+        ],
+        "failed": false,
+        "updates": [
+            "logging buffered 16384",
+            "logging console warnings"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+
+TASK [Set banner text based on hostname] ***************************************
+ok: [Core-Router-East]
+ok: [Core-Router-West]
+
+TASK [Configure login banner] **************************************************
+changed: [Core-Router-East]
+changed: [Core-Router-West]
+
+TASK [Debug banner configuration result] ***************************************
+ok: [Core-Router-East] => {
+    "banner_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "banner login ^*** CORE ROUTER - Authorized Access Only ***^"
+        ],
+        "failed": false,
+        "updates": [
+            "banner login ^*** CORE ROUTER - Authorized Access Only ***^"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+ok: [Core-Router-West] => {
+    "banner_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "banner login ^*** DISTRIBUTION ROUTER - Authorized Access Only ***^"
+        ],
+        "failed": false,
+        "updates": [
+            "banner login ^*** DISTRIBUTION ROUTER - Authorized Access Only ***^"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+
+TASK [Configure timezone] ******************************************************
+changed: [Core-Router-West]
+changed: [Core-Router-East]
+
+TASK [Debug timezone configuration result] *************************************
+ok: [Core-Router-East] => {
+    "timezone_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "clock timezone CST -6"
+        ],
+        "failed": false,
+        "updates": [
+            "clock timezone CST -6"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+ok: [Core-Router-West] => {
+    "timezone_result": {
+        "banners": {},
+        "changed": true,
+        "commands": [
+            "clock timezone CST -6"
+        ],
+        "failed": false,
+        "updates": [
+            "clock timezone CST -6"
+        ],
+        "warnings": [
+            "To ensure idempotency and correct diff the input configuration lines should be similar to how they appear if present in the running configuration on device"
+        ]
+    }
+}
+
+TASK [Verify NTP configuration] ************************************************
+ok: [Core-Router-West]
+ok: [Core-Router-East]
+
+TASK [Debug NTP verification output] *******************************************
+ok: [Core-Router-East] => {
+    "ntp_verify.stdout_lines": [
+        [
+            "Clock is unsynchronized, stratum 16, no reference clock",
+            "nominal freq is 250.0000 Hz, actual freq is 250.0000 Hz, precision is 2**10",
+            "ntp uptime is 600 (1/100 of seconds), resolution is 4000",
+            "reference time is 00000000.00000000 (18:00:00.000 CST Thu Dec 31 1899)",
+            "clock offset is 0.0000 msec, root delay is 0.00 msec",
+            "root dispersion is 0.10 msec, peer dispersion is 0.00 msec",
+            "loopfilter state is 'NSET' (Never set), drift is 0.000000000 s/s",
+            "system poll interval is 8, never updated."
+        ],
+        [
+            "address         ref clock       st   when   poll reach  delay  offset   disp",
+            " * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured"
+        ]
+    ]
+}
+ok: [Core-Router-West] => {
+    "ntp_verify.stdout_lines": [
+        [
+            "Clock is unsynchronized, stratum 16, no reference clock",
+            "nominal freq is 250.0000 Hz, actual freq is 250.0000 Hz, precision is 2**10",
+            "ntp uptime is 600 (1/100 of seconds), resolution is 4000",
+            "reference time is 00000000.00000000 (18:00:00.000 CST Thu Dec 31 1899)",
+            "clock offset is 0.0000 msec, root delay is 0.00 msec",
+            "root dispersion is 0.10 msec, peer dispersion is 0.00 msec",
+            "loopfilter state is 'NSET' (Never set), drift is 0.000000000 s/s",
+            "system poll interval is 8, never updated."
+        ],
+        [
+            "address         ref clock       st   when   poll reach  delay  offset   disp",
+            " * sys.peer, # selected, + candidate, - outlyer, x falseticker, ~ configured"
+        ]
+    ]
+}
+
+TASK [Verify logging configuration] ********************************************
+ok: [Core-Router-East]
+ok: [Core-Router-West]
+
+TASK [Debug logging verification output] ***************************************
+ok: [Core-Router-East] => {
+    "logging_verify.stdout_lines": [
+        [
+            "logging buffered 16384",
+            "logging console warnings",
+            "no logging btrace",
+            " logging synchronous"
+        ]
+    ]
+}
+ok: [Core-Router-West] => {
+    "logging_verify.stdout_lines": [
+        [
+            "logging buffered 16384",
+            "logging console warnings",
+            "no logging btrace",
+            " logging synchronous"
+        ]
+    ]
+}
+
+TASK [Verify banner configuration] *********************************************
+ok: [Core-Router-East]
+ok: [Core-Router-West]
+
+TASK [Debug banner verification output] ****************************************
+ok: [Core-Router-East] => {
+    "banner_verify.stdout_lines": [
+        [
+            "banner login ^C*** CORE ROUTER - Authorized Access Only ***^C"
+        ]
+    ]
+}
+ok: [Core-Router-West] => {
+    "banner_verify.stdout_lines": [
+        [
+            "banner login ^C*** DISTRIBUTION ROUTER - Authorized Access Only ***^C"
+        ]
+    ]
+}
+
+TASK [Verify timezone configuration] *******************************************
+ok: [Core-Router-West]
+ok: [Core-Router-East]
+
+TASK [Debug timezone verification output] **************************************
+ok: [Core-Router-East] => {
+    "timezone_verify.stdout_lines": [
+        [
+            "*10:39:19.889 CST Sun Dec 7 2025"
+        ]
+    ]
+}
+ok: [Core-Router-West] => {
+    "timezone_verify.stdout_lines": [
+        [
+            "*10:39:19.875 CST Sun Dec 7 2025"
+        ]
+    ]
+}
+
+PLAY RECAP *********************************************************************
+Core-Router-East           : ok=17   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+Core-Router-West           : ok=17   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
