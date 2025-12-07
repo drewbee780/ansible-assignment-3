@@ -28,4 +28,5 @@ Run the following command: ```ansible-playbook -i inventory.ini assignment3.yaml
 ![Screenshot of Core-Router-East time config.](screenshots/core-router-east-time.png)
 #### Core-Router-West
 ![Screenshot of Core-Router-West time config.](screenshots/core-router-west-time.png)
+
 Note: The routers cannot reach Google's Time Server (no internet connectivity) so the show ntp commands will state that the router's clock is unsynchonized. 
